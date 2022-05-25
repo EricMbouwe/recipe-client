@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import IngredientList from './IngredientList'
 
-function IngredientSearchInput() {
+function IngredientSearchInput({ onSelectIngredient, ingredientData, onSearchIngredient }) {
+    const [search, setsearch] = useState('')
+
+    const handleChange = (e) => {
+        const val = e.target.value
+        setsearch(val)
+        onSearchIngredient(val)
+    }
+
     return (
         <div className='relative min-w-[500px]'>
             <input
@@ -10,8 +18,11 @@ function IngredientSearchInput() {
                 id="ingredientName"
                 name="ingredientName"
                 placeholder='Please choose your ingredients'
+                value={search}
+                onChange={handleChange}
+                autoComplete="off"
             />
-            <IngredientList />
+            <IngredientList data={ingredientData} onSelectIngredient={onSelectIngredient} />
         </div>
     )
 }

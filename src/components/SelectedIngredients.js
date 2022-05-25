@@ -1,21 +1,25 @@
 import React from 'react'
 
-function SelectedIngredients() {
+function SelectedIngredients({ selected, onRemoveSelected }) {
     return (
         <section className='max-w-7xl mx-auto mt-10'>
             <h1 className='font-medium text-3xl'>Your selected ingredients</h1>
 
             <div className='flex items-center gap-10'>
                 <div className='flex-1'>
-                    <ul className='shadow-md mt-5 rounded bg-slate-100 text-gray-900 p-4 min-h-[400px]'>
-                        <li className='flex space-x-2 items-center'>
-                            <span>Selected ingredient one</span>
-                            <button
-                                className='border border-gray-500'
-                            >
-                                <span className=''>x</span>
-                            </button>
-                        </li>
+                    <ul className='shadow-md mt-5 rounded bg-slate-100 text-gray-900 p-4 min-h-[300px] max-h-96 overflow-y-auto'>
+                        {selected.map((ingredientName, id) => (
+                            <li key={id} className='flex space-x-2 items-center'>
+                                <span>{ingredientName}</span>
+                                <button
+                                    className='border border-gray-500'
+                                    onClick={() => onRemoveSelected(id)}
+                                >
+                                    <span className=''>x</span>
+                                </button>
+                            </li>
+                        ))}
+
                     </ul>
                 </div>
 
