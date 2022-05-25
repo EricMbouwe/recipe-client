@@ -35,6 +35,10 @@ function App() {
     console.log('Call api to request the search ingred: ', sanitizeStr)
     // api post req
     // setIngredientData(req response)
+
+    // const regex = new RegExp(sanitizeStr, 'i');
+    // const fileteredIngredients = ingredientData.filter(ingredientName => regex.test(ingredientName));
+    // setIngredientData(fileteredIngredients)
   }
 
   const selectAnIngredient = (name) => {
@@ -48,7 +52,8 @@ function App() {
     setSelectedIgredients(newList)
   }
 
-  const findRecipes = (ingredients) => {
+  const findRecipes = () => {
+    if (!selectedIngrendients.length) return console.log('No ingredients selected!')
     setRecipes([])
   }
 
