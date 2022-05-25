@@ -35,21 +35,29 @@ function App() {
     }
   }
 
-  const searchIngredient = (searchValue) => {
+  const searchIngredient = async (searchValue) => {
     const sanitizeStr = searchValue.trim()
 
     if (!sanitizeStr) {
       console.log('Set default ingredient list')
-      return setFileteredIngredients(ingredientData)
+      setFileteredIngredients([...ingredientData])
     }
 
-    console.log('Call api to request the search ingred: ', sanitizeStr)
-    // api post req
-    // setIngredientData(req response)
-
-    const regex = new RegExp(sanitizeStr, 'i');
-    const newValues = ingredientData.filter(ingredientName => regex.test(ingredientName));
-    setFileteredIngredients(newValues)
+    try {
+      console.log('Call api to request the search ingred: ', sanitizeStr)
+      const rawResponse = await fetch(`${ingredientLocalUrl}/search`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ search: sanitizeStr })
+      });
+      const data = await rawResponse.json();
+      setFileteredIngredients(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const selectAnIngredient = (name) => {

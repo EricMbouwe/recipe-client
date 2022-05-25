@@ -10,7 +10,7 @@ function IngredientSearchInput({ onSelectIngredient, ingredientData, onSearchIng
     return (
         <div className='relative min-w-[500px]'>
             <input
-                className='p-4 w-full border border-slate-400 rounded-md shadow-md focus:outline-none'
+                className='py-2 px-4 w-full border border-slate-400 rounded-md shadow-md focus:outline-none'
                 type="text"
                 id="ingredientName"
                 name="ingredientName"
