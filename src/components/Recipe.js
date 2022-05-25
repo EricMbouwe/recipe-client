@@ -1,14 +1,14 @@
 import React from 'react'
 
-function Recipe() {
+function Recipe({ data }) {
     return (
-        <div className='shadow-lg rounded min-h-[200px]'>
+        <div className='shadow-lg rounded space-y-5 min-h-[200px]'>
             <img
                 className='object-cover max-w-xs'
-                scr=""
-                alt='cool fake alternate'
+                scr={data.image}
+                alt={data.name}
             />
-            <p>Recipe name</p>
+            <p>{data.name}</p>
         </div>
     )
 }

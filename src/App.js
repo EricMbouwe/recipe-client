@@ -13,25 +13,26 @@ function App() {
   const ingredientLocalUrl = '/api/v1/ingredients'
   // const ingredientProdUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/ingredients'
 
+  const recipeLocalUrl = '/api/v1/recipes'
+  // const recipeProdUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/recipes'
+
   const { data, loading } = useFetch(ingredientLocalUrl)
 
   useEffect(() => {
-    console.log('APP Mounted')
     if (data.length) {
       setIngredientData(data)
-      console.log('DATA: ', data)
     }
   }, [data])
 
   const searchIngredient = (searchValue) => {
     const sanitizeStr = searchValue.trim()
-    console.log('Call api to request the search ingred: ', sanitizeStr)
 
     if (!sanitizeStr) {
-      setIngredientData(data)
       console.log('Set default ingredient list')
-      return
+      return setIngredientData(data)
     }
+
+    console.log('Call api to request the search ingred: ', sanitizeStr)
     // api post req
     // setIngredientData(req response)
   }

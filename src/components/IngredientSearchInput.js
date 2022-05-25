@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
 import IngredientList from './IngredientList'
 
 function IngredientSearchInput({ onSelectIngredient, ingredientData, onSearchIngredient }) {
-    const [search, setsearch] = useState('')
 
     const handleChange = (e) => {
         const val = e.target.value
-        setsearch(val)
         onSearchIngredient(val)
     }
 
@@ -18,7 +15,6 @@ function IngredientSearchInput({ onSelectIngredient, ingredientData, onSearchIng
                 id="ingredientName"
                 name="ingredientName"
                 placeholder='Please choose your ingredients'
-                value={search}
                 onChange={handleChange}
                 autoComplete="off"
             />
