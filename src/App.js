@@ -11,11 +11,11 @@ function App() {
   const [fileteredIngredients, setFileteredIngredients] = useState([])
   const [loading, setLoading] = useState(true);
 
-  const ingredientLocalUrl = '/api/v1/ingredients'
-  // const ingredientProdUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/ingredients'
+  // const ingredientLocalUrl = '/api/v1/ingredients'
+  const ingredientLocalUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/ingredients'
 
-  const recipeLocalUrl = '/api/v1/recipes'
-  // const recipeProdUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/recipes'
+  // const recipeLocalUrl = '/api/v1/recipes'
+  const recipeLocalUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/recipes'
 
   useEffect(() => {
     getIngredientList()
