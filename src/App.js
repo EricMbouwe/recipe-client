@@ -7,8 +7,10 @@ function App() {
   return (
     <>
       <Header />
-      <SelectedIngredients />
-      <RecipeList />
+      <main className='px-5'>
+        <SelectedIngredients />
+        <RecipeList />
+      </main>
     </>
   );
 }

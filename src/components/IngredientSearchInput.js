@@ -9,6 +9,7 @@ function IngredientSearchInput() {
                 type="text"
                 id="ingredientName"
                 name="ingredientName"
+                placeholder='Please choose your ingredients'
             />
             <IngredientList />
         </div>
