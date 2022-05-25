@@ -18,7 +18,7 @@ function IngredientSearchInput({ onSelectIngredient, ingredientData, onSearchIng
                 onChange={handleChange}
                 autoComplete="off"
             />
-            <IngredientList data={ingredientData} onSelectIngredient={onSelectIngredient} />
+            {ingredientData.length > 0 && <IngredientList data={ingredientData} onSelectIngredient={onSelectIngredient} />}
         </div>
     )
 }

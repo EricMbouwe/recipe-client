@@ -3,12 +3,13 @@ import './App.css';
 import Header from './components/Header';
 import RecipeList from './components/RecipeList';
 import SelectedIngredients from './components/SelectedIngredients';
-import useFetch from './utils/useFetch';
 
 function App() {
   const [selectedIngrendients, setSelectedIgredients] = useState([])
   const [recipes, setRecipes] = useState([])
   const [ingredientData, setIngredientData] = useState([])
+  const [fileteredIngredients, setFileteredIngredients] = useState([])
+  const [loading, setLoading] = useState(true);
 
   const ingredientLocalUrl = '/api/v1/ingredients'
   // const ingredientProdUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/ingredients'
@@ -16,29 +17,39 @@ function App() {
   const recipeLocalUrl = '/api/v1/recipes'
   // const recipeProdUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/recipes'
 
-  const { data, loading } = useFetch(ingredientLocalUrl)
-
   useEffect(() => {
-    if (data.length) {
+    getIngredientList()
+  }, [])
+
+  const getIngredientList = async () => {
+    try {
+      setLoading(true)
+      const rawResponse = await fetch(ingredientLocalUrl)
+      const data = await rawResponse.json();
       setIngredientData(data)
+      setFileteredIngredients(data)
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      console.log('ERROR: ', error.message)
     }
-  }, [data])
+  }
 
   const searchIngredient = (searchValue) => {
     const sanitizeStr = searchValue.trim()
 
     if (!sanitizeStr) {
       console.log('Set default ingredient list')
-      return setIngredientData(data)
+      return setFileteredIngredients(ingredientData)
     }
 
     console.log('Call api to request the search ingred: ', sanitizeStr)
     // api post req
     // setIngredientData(req response)
 
-    // const regex = new RegExp(sanitizeStr, 'i');
-    // const fileteredIngredients = ingredientData.filter(ingredientName => regex.test(ingredientName));
-    // setIngredientData(fileteredIngredients)
+    const regex = new RegExp(sanitizeStr, 'i');
+    const newValues = ingredientData.filter(ingredientName => regex.test(ingredientName));
+    setFileteredIngredients(newValues)
   }
 
   const selectAnIngredient = (name) => {
@@ -52,14 +63,32 @@ function App() {
     setSelectedIgredients(newList)
   }
 
-  const findRecipes = () => {
+  const findRecipes = async () => {
     if (!selectedIngrendients.length) return console.log('No ingredients selected!')
-    setRecipes([])
+
+    try {
+      setLoading(true)
+      const rawResponse = await fetch(`${recipeLocalUrl}/search`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ list: selectedIngrendients })
+      });
+      const { recipes } = await rawResponse.json();
+      setRecipes(recipes)
+
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
+    }
+
   }
 
   return (
     <>
-      <Header onSelectIngredient={selectAnIngredient} ingredientData={ingredientData} onSearchIngredient={searchIngredient} />
+      <Header onSelectIngredient={selectAnIngredient} ingredientData={fileteredIngredients} onSearchIngredient={searchIngredient} />
       {
         loading ?
           <div className='h-screen overflow-hidden flex items-center justify-center'>
