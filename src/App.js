@@ -40,7 +40,7 @@ function App() {
 
     if (!sanitizeStr) {
       console.log('Set default ingredient list')
-      setFileteredIngredients([...ingredientData])
+      return setFileteredIngredients([...ingredientData])
     }
 
     try {
