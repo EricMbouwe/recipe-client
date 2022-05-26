@@ -12,10 +12,10 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   // const ingredientLocalUrl = '/api/v1/ingredients'
-  const ingredientLocalUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/ingredients'
+  const ingredientLocalUrl = 'https://futa-recipe-api.herokuapp.com/api/v1/ingredients'
 
   // const recipeLocalUrl = '/api/v1/recipes'
-  const recipeLocalUrl = 'http://futa-recipe-api.herokuapp.com/api/v1/recipes'
+  const recipeLocalUrl = 'https://futa-recipe-api.herokuapp.com/api/v1/recipes'
 
   useEffect(() => {
     getIngredientList()
@@ -44,7 +44,6 @@ function App() {
     }
 
     try {
-      console.log('Call api to request the search ingred: ', sanitizeStr)
       const rawResponse = await fetch(`${ingredientLocalUrl}/search`, {
         method: 'POST',
         headers: {
